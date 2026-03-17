@@ -6381,14 +6381,6 @@ void player_t::combat_begin()
                 t_str = action->target->name_str;
               } );
 
-            // Track precombat harmful action for prev/prev_gcd expressions BEFORE execute,
-            // because execute() may trigger combat start and the first combat GCD evaluation.
-            if ( auto combat_action = find_action( action->name_str ) )
-            {
-              last_foreground_action = combat_action;
-              if ( combat_action->trigger_gcd > timespan_t::zero() )
-                prev_gcd_actions.push_back( combat_action );
-            }
             action->execute();
             first_cast = false;
           }
